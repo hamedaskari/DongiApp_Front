@@ -1,5 +1,7 @@
+"use client";
 import axiosInstance from "@/lib/axios";
 import { PaginatedData } from "@/validation/types/paginateData";
+import { ShareData } from "@/validation/types/transActions";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import toast from "react-hot-toast";
@@ -37,31 +39,34 @@ export const useTransAction = () => {
     queryKey: ["transactions", groupID],
     queryFn: async () => {
       const res = await axiosInstance.get(`/share/group/${groupID}`);
-      return (res?.data?.data as PaginatedData<ShareData>) || [];
+      return (res?.data?.data as PaginatedData<ShareData>) ?? [];
     },
   });
 
   //Create TransActions
 
-  const { mutateAsync: handleCreateTransAction, isPending: isPendingCreate } =
-    useMutation({
-      mutationFn: async (formData: FormData) => {
-        const finalData = {
-          ...formData,
-          groupId: groupID,
-        };
-        const response = await axiosInstance.post("/share", finalData);
-        return response.data;
-      },
+  const {
+    mutateAsync: handleCreateTransAction,
+    isPending: isPendingCreate,
+    isSuccess: isSuccessCreateTransActions,
+  } = useMutation({
+    mutationFn: async (formData: FormData) => {
+      const finalData = {
+        ...formData,
+        groupId: groupID,
+      };
+      const response = await axiosInstance.post("/share", finalData);
+      return response.data;
+    },
 
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["transactions"] });
-        toast.success("تراکنش ساخته شد");
-      },
-      onError: (error) => {
-        console.error(error);
-      },
-    });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      toast.success("تراکنش ساخته شد");
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
   return {
     handleRATransActions,
     handleCreateTransAction,
@@ -69,5 +74,6 @@ export const useTransAction = () => {
     isLoadingList,
     transActionList,
     isPendingRA,
+    isSuccessCreateTransActions,
   };
 };

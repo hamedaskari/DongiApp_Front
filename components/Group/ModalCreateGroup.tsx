@@ -1,10 +1,9 @@
 import { useCreateGroup } from "@/hooks/useCreateGroup";
-import CustomForm from "@/util/Form/CustomForm";
-import Loading from "@/components/loadings/Loading";
-import { DialogDemo } from "@/util/Modal";
+import CustomForm from "@/components/Form/CustomForm";
+import Loading from "@/components/loading/Loading";
+import { DialogDemo } from "@/components/Modal";
 import { createGroupSchema } from "@/validation/createGroupSchema";
 import type { Field } from "@/validation/types/formTypes";
-import LoadingOverlay from "../loadings/LoadingOverlay";
 
 //form input
 const fields: Field[] = [
@@ -19,11 +18,12 @@ const fields: Field[] = [
 
 export default function ModalCreateGroup() {
   //handle create group
-  const { handleCreateGroup, isPending } = useCreateGroup();
+  const { handleCreateGroup, isPending, isSuccess } = useCreateGroup();
 
   return (
     <>
       <DialogDemo
+        modalState={isSuccess}
         isLoading={isPending}
         description="یک گروه برای حساب کردن دنگ ها ایجاد کنید."
         title="ایجاد گروه"

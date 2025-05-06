@@ -28,7 +28,7 @@ export default function MenuItem() {
       </SheetTrigger>
       <SheetContent className="bg-white border-0 ">
         <SheetHeader className="text-center bg-blue-900 text-white">
-          <SheetTitle>منو</SheetTitle>
+          <SheetTitle className="text-white">منو</SheetTitle>
         </SheetHeader>
         <div className="w-full gap-4 p-4">
           <Link href={"/"}>

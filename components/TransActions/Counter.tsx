@@ -16,7 +16,7 @@ export default function Counter({ userName, control, index }) {
               className="w-4 p-3 h-5 bg-amber-500 mx-2"
               onClick={(e) => {
                 e.preventDefault();
-                field.onChange(field.value - 1);
+                field.onChange(field.value > 1 ? field.value - 1 : field.value);
               }}
             >
               -

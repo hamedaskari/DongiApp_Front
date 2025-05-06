@@ -14,7 +14,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import Counter from "@/util/Counter";
+import Counter from "@/components/TransActions/Counter";
 import { Check, ChevronsUpDown } from "lucide-react";
 import React from "react";
 import { Controller, useWatch } from "react-hook-form";
@@ -53,6 +53,7 @@ export function MultiUserSelect({ control, nameField }) {
                     <CommandGroup>
                       {groupMembers?.data.map((user) => {
                         const id = user.member?.id;
+
                         const name = user.member?.name;
                         const isSelected = field.value.includes(id);
                         return (

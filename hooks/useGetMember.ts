@@ -10,17 +10,23 @@ export function useGetMembers(page) {
   const pathName = usePathname();
   const groupID = pathName.split("/")[2];
 
-  const { data: groupMembers, isLoading } = useQuery<
-    PaginatedData<GroupMembership>,
-    ErrorResponse
-  >({
-    queryKey: ["groupMembers", groupID],
+  const {
+    data: groupMembers,
+    isLoading,
+    refetch,
+    isError,
+  } = useQuery<PaginatedData<GroupMembership>, ErrorResponse>({
+    queryKey: ["groupMembers", groupID, page],
     queryFn: async () => {
+      if (!groupID) throw new Error("ایدی گروه در دسترس نیست");
+
       const res = await axiosInstance.get(
         `/group/${groupID}/member?page=${page || 1}`
       );
-      return (res.data?.data as PaginatedData<GroupMembership>) ?? [];
+
+      return res.data?.data as PaginatedData<GroupMembership>;
     },
   });
-  return { groupMembers, isLoading };
+
+  return { groupMembers, isLoading, isError, refetch };
 }

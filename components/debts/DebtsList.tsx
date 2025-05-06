@@ -8,10 +8,11 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import Loading from "@/components/loadings/Loading";
+import Loading from "@/components/loading/Loading";
 
 export default function DebtList() {
   const { user } = useUser();
+  console.log(user);
   //Get Debts
   const { debtsData, isPending } = useGetDebts();
 

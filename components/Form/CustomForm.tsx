@@ -1,6 +1,7 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CustomFormField from "@/util/Form/CustomFormField";
+import CustomFormField from "@/components/Form/CustomFormField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { Field } from "@/validation/types/formTypes";

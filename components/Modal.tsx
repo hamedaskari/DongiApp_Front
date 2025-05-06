@@ -1,5 +1,4 @@
 "use client";
-import LoadingOverlay from "@/components/loadings/LoadingOverlay";
 import {
   Dialog,
   DialogContent,
@@ -29,7 +28,7 @@ export function DialogDemo({
   isLoading,
 }: DialogDemoProps) {
   const [isModalOpen, setIsModalOpen] = useState<boolean | any>(false);
-
+  console.log(isModalOpen);
   function handleOpenChange(open: boolean) {
     if (isLoading) {
       if (!open) {
@@ -38,8 +37,9 @@ export function DialogDemo({
     }
     setIsModalOpen(open);
   }
-  useEffect(() => setIsModalOpen(modalState), [modalState]);
-
+  useEffect(() => {
+    if (modalState) setIsModalOpen(false);
+  }, [modalState]);
   return (
     <>
       <Dialog onOpenChange={(e) => handleOpenChange(e)} open={isModalOpen}>

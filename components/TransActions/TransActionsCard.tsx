@@ -7,7 +7,7 @@ import {
   CardHeader,
 } from "../ui/card";
 import { Button } from "../ui/button";
-import { BadgeDemo } from "@/util/CustomBadge";
+import { BadgeDemo } from "@/components/CustomBadge";
 
 export function CardWithForm({ item, index, handleShareAction, isPending }) {
   const {

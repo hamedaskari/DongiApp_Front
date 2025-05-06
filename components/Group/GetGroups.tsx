@@ -1,10 +1,10 @@
 "use client";
 
-import Loading from "@/components/loadings/Loading";
+import Loading from "@/components/loading/Loading";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useGetGroups } from "@/hooks/useGetGroups";
-import { PaginationDemo } from "@/util/Pagination";
+import { PaginationDemo } from "@/components/Pagination";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,11 +24,13 @@ export default function GetGruops() {
     router.push(`?${params.toString()}`);
     setPage(newPage);
   };
-
+  let numberOfItems, numberOfPages;
   if (isLoading) return <Loading />;
 
-  const numberOfItems = groupData?.data?.length <= 0;
-  const numberOfPages = groupData?.last_page;
+  if (groupData && groupData?.data && groupData?.data?.length > 0) {
+    numberOfItems = groupData?.data?.length <= 0;
+    numberOfPages = groupData?.last_page;
+  }
 
   return (
     <div className="p-3 lg:p-9 md:p-5 space-y-4 overflow-y-auto">
@@ -43,21 +45,24 @@ export default function GetGruops() {
               key={`cardId-${item.id}`}
               className="flex bg-gray-50 border-sky-50 shadow-gray-300 flex-row items-center p-4"
             >
-              <PopoverDemo groupID={item.id} />
-              <Button
-                type="button"
-                className="transition-all  duration-300 cursor-pointer text-white hover:bg-blue-900  bg-blue-400"
-                size="sm"
-              >
-                <Link href={`/group/${item?.group?.id}/members`}>مشاهده</Link>
-              </Button>
+              <PopoverDemo groupID={`${item.id}`} />
+
+              <Link href={`/group/${item?.group?.id}/members`}>
+                <Button
+                  type="button"
+                  className="transition-all  duration-300 cursor-pointer text-white hover:bg-blue-900  bg-blue-400"
+                  size="sm"
+                >
+                  مشاهده
+                </Button>
+              </Link>
               <div className="ml-4 flex justify-end flex-1 gap-2.5 text-right">
                 <h3 className="text-lg font-medium">{item?.group?.name}</h3>
               </div>
               <div className="relative flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
                 <Image
                   src="/166258.png"
-                  alt={item.id}
+                  alt={`${item.id}`}
                   width={48}
                   height={48}
                   style={{ objectFit: "cover" }}

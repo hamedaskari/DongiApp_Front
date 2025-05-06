@@ -1,13 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import CustomFormField from "@/util/Form/CustomFormField";
+import CustomFormField from "@/components/Form/CustomFormField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useRegister } from "@/hooks/useRegister";
 import { schema } from "@/validation/formSchema";
-import LoadingOverlay from "../loadings/LoadingOverlay";
 
 export default function RegisterForm() {
   const methods = useForm({
@@ -30,7 +29,6 @@ export default function RegisterForm() {
 
   return (
     <div className="flex w-full min-h-screen justify-center items-center">
-      {isPending && <LoadingOverlay />}
       <Form {...methods}>
         <form
           onSubmit={methods.handleSubmit(onSubmit)}

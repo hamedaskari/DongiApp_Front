@@ -1,8 +1,8 @@
-import { DialogDemo } from "@/util/Modal";
+import { DialogDemo } from "@/components/Modal";
 import React from "react";
 import { Button } from "../ui/button";
 import { FaPencil } from "react-icons/fa6";
-import CustomForm from "@/util/Form/CustomForm";
+import CustomForm from "@/components/Form/CustomForm";
 import { useRDgroup } from "@/hooks/useRDgroup";
 import { createGroupSchema } from "@/validation/createGroupSchema";
 import type { Field } from "@/validation/types/formTypes";

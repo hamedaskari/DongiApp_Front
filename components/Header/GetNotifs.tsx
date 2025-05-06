@@ -3,8 +3,8 @@
 import { Card } from "@/components/ui/card";
 import { useGetNotif } from "@/hooks/useGetNotif";
 import { useMemberShipReq } from "@/hooks/useMemberShipReq";
-import Loading from "@/components/loadings/Loading";
-import { PaginationDemo } from "@/util/Pagination";
+import Loading from "@/components/loading/Loading";
+import { PaginationDemo } from "@/components/Pagination";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -36,7 +36,7 @@ export default function GetNotifs() {
   const numberOfItems = notifData?.data?.length <= 0;
   //get number of page for pagination
   const numberOfPages = notifData?.last_page;
-  console.log(notifData);
+
   return (
     <div className=" lg:p-2 md:p-5 space-y-4 overflow-y-auto">
       {numberOfItems ? (
@@ -74,9 +74,7 @@ export default function GetNotifs() {
                 </Button>
               </div>
               <div className="ml-4 flex justify-end flex-1 gap-2.5 text-right">
-                <h3 className="text-sm ">
-                  {`${item?.member?.name} ${item?.member?.family}`}
-                </h3>
+                <h3 className="text-sm ">{item?.group?.name}</h3>
               </div>
               <div className="relative flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
                 <Image

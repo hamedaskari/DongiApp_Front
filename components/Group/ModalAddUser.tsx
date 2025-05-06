@@ -1,7 +1,8 @@
+"use client";
 import { useInviteToGroup } from "@/hooks/useInviteToGroup";
 import { senUserJoinReq } from "@/validation/sendJoinReq";
-import CustomForm from "@/util/Form/CustomForm";
-import { DialogDemo } from "@/util/Modal";
+import CustomForm from "@/components/Form/CustomForm";
+import { DialogDemo } from "@/components/Modal";
 import type { Field } from "@/validation/types/formTypes";
 const fields: Field[] = [
   {
@@ -13,10 +14,11 @@ const fields: Field[] = [
   },
 ];
 export default function ModalAddUser() {
-  const { handleInviteUser, isPending } = useInviteToGroup();
+  const { handleInviteUser, isPending, isSuccess } = useInviteToGroup();
 
   return (
     <DialogDemo
+      modalState={isSuccess}
       isLoading={isPending}
       description={
         "درخواست به کاربر ارسال میشود و پس از تایید وارد گروه خواهد شد."

@@ -1,6 +1,5 @@
-import TransactionForm from "@/components/Form/TransactionForm";
-import TransActionsBox from "@/components/Group/TransActionsBox";
-import { DialogDemo } from "@/util/Modal";
+import ModalTransActions from "@/components/TransActions/ModalTransActions";
+import TransActionsBox from "@/components/TransActions/TransActionsBox";
 
 export default function page() {
   return (
@@ -9,17 +8,7 @@ export default function page() {
       <TransActionsBox />
 
       {/* Modal Create TransActions */}
-      <DialogDemo
-        description={"دنگ را بسازید و منتظر بمانید تا ادمین تایید کند."}
-        title={"ایجاد دنگ"}
-        DialogTriggerJSX={
-          <div className="bg-green-400 text-3xl fixed rounded-full w-15 h-15 bottom-5 left-5 flex items-center justify-center text-white cursor-pointer">
-            +
-          </div>
-        }
-      >
-        <TransactionForm />
-      </DialogDemo>
+      <ModalTransActions />
     </div>
   );
 }

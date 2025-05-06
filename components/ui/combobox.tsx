@@ -1,15 +1,13 @@
 "use client";
 
-import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
-  CommandInput,
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
@@ -18,17 +16,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { usePathname } from "next/navigation";
-import { useQueryClient } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
 
+import { useGetMembers } from "@/hooks/useGetMember";
 import { Controller } from "react-hook-form";
 
 export function ComboboxDemo({ control, nameField }) {
-  const pathName = usePathname();
-  const groupID = pathName.split("/")[2];
-  const queryClient = useQueryClient();
-  const members = queryClient.getQueryData(["groupMembers", groupID]);
-
+  const { groupMembers } = useGetMembers(1);
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -45,7 +39,7 @@ export function ComboboxDemo({ control, nameField }) {
                 className="w-[200px] justify-between"
               >
                 {field.value
-                  ? members?.data.find(
+                  ? groupMembers?.data.find(
                       (user) => user.member?.id === field.value
                     )?.member?.name
                   : "مادر خرج را انتخاب کن"}
@@ -54,11 +48,10 @@ export function ComboboxDemo({ control, nameField }) {
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
               <Command>
-                <CommandInput placeholder="جستجوی کاربر..." />
                 <CommandList>
                   <CommandEmpty>کاربر پیدا نشد</CommandEmpty>
                   <CommandGroup>
-                    {members?.data.map((user) => (
+                    {groupMembers?.data?.map((user) => (
                       <CommandItem
                         key={user.id}
                         value={String(user.member?.id)}
